@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inclusive Content Hub | SDG 4</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-theme="light">
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loader">
+            <div class="loader-spinner"></div>
+            <p>Loading Inclusive Content Hub...</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="app-icon">🌍</span>
+                    Inclusive Content Hub
+                </h1>
+                <p class="app-subtitle">Making Education Accessible for All - SDG 4</p>
+            </div>
+            <div class="header-actions">
+                <button id="themeToggle" class="theme-toggle" title="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-number" id="charCount">0</span>
+                <span class="stat-label">Characters</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="wordCount">0</span>
+                <span class="stat-label">Words</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="sentenceCount">0</span>
+                <span class="stat-label">Sentences</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="section-header">
+                    <h2>📝 Your Content</h2>
+                    <div class="section-actions">
+                        <button id="clearInput" class="btn-secondary" title="Clear text">
+                            🗑️ Clear
+                        </button>
+                        <button id="sampleText" class="btn-secondary" title="Load sample text">
+                            📄 Sample
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="input-container">
+                    <textarea 
+                        id="inputText" 
+                        placeholder="Paste your educational content, textbook material, or notes here..."
+                        rows="6"
+                    >Education is the most powerful weapon which you can use to change the world. Quality education should be accessible to everyone, regardless of their abilities, language, or learning preferences. This tool helps bridge educational gaps by providing multiple ways to access and understand learning materials.</textarea>
+                    
+                    <div class="input-footer">
+                        <span class="char-limit" id="charLimit">Max: 5000 characters</span>
+                        <div class="input-actions">
+                            <button id="pasteText" class="btn-small">📋 Paste</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tools Section -->
+            <section class="tools-section">
+                <div class="section-header">
+                    <h2>🛠️ Accessibility Tools</h2>
+                    <div class="tool-indicators">
+                        <span class="tool-status" id="speechStatus">🔊 Ready</span>
+                        <span class="tool-status" id="translateStatus">🌐 Online</span>
+                    </div>
+                </div>
+
+                <div class="tools-grid">
+                    <!-- Text-to-Speech Card -->
+                    <div class="tool-card" data-tool="speech">
+                        <div class="tool-header">
+                            <div class="tool-icon">🔊</div>
+                            <h3>Text-to-Speech</h3>
+                            <div class="tool-badge" id="speechBadge">For Visually Impaired</div>
+                        </div>
+                        <p class="tool-description">Convert text to audio for listening instead of reading</p>
+                        
+                        <div class="tool-controls">
+                            <div class="voice-controls">
+                                <label>Voice:</label>
+                                <select id="voiceSelect" class="voice-select">
+                                    <option value="default">Default Voice</option>
+                                </select>
+                            </div>
+                            
+                            <div class="playback-controls">
+                                <button id="playBtn" class="btn-primary tool-btn">
+                                    <span class="btn-icon">▶️</span>
+                                    Play
+                                </button>
+                                <button id="pauseBtn" class="btn-secondary tool-btn" disabled>
+                                    <span class="btn-icon">⏸️</span>
+                                    Pause
+                                </button>
+                                <button id="stopBtn" class="btn-secondary tool-btn" disabled>
+                                    <span class="btn-icon">⏹️</span>
+                                    Stop
+                                </button>
+                            </div>
+
+                            <div class="speed-control">
+                                <label>Speed:</label>
+                                <input type="range" id="speechSpeed" min="0.5" max="2" step="0.1" value="1" class="speed-slider">
+                                <span id="speedValue" class="speed-value">1.0x</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Translation Card -->
+                    <div class="tool-card" data-tool="translation">
+                        <div class="tool-header">
+                            <div class="tool-icon">🌐</div>
+                            <h3>Translation</h3>
+                            <div class="tool-badge" id="translateBadge">Multi-language</div>
+                        </div>
+                        <p class="tool-description">Translate content to different languages</p>
+                        
+                        <div class="tool-controls">
+                            <div class="language-controls">
+                                <div class="language-group">
+                                    <label>From:</label>
+                                    <select id="sourceLang" class="language-select" disabled>
+                                        <option value="auto">Auto-detect</option>
+                                    </select>
+                                </div>
+                                <div class="language-group">
+                                    <label>To:</label>
+                                    <select id="targetLang" class="language-select">
+                                        <option value="es">Spanish</option>
+                                        <option value="fr">French</option>
+                                        <option value="de">German</option>
+                                        <option value="it">Italian</option>
+                                        <option value="pt">Portuguese</option>
+                                        <option value="sw">Swahili</option>
+                                        <option value="hi">Hindi</option>
+                                        <option value="ar">Arabic</option>
+                                        <option value="zh">Chinese</option>
+                                        <option value="ja">Japanese</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <button id="translateBtn" class="btn-primary tool-btn">
+                                <span class="btn-icon">🌐</span>
+                                Translate Text
+                            </button>
+
+                            <div class="translation-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="preserveFormatting">
+                                    Keep original formatting
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simplification Card -->
+                    <div class="tool-card" data-tool="simplification">
+                        <div class="tool-header">
+                            <div class="tool-icon">✍️</div>
+                            <h3>Text Simplification</h3>
+                            <div class="tool-badge" id="simplifyBadge">Easy Reading</div>
+                        </div>
+                        <p class="tool-description">Make complex text easier to understand</p>
+                        
+                        <div class="tool-controls">
+                            <div class="simplify-options">
+                                <label>Simplification Level:</label>
+                                <select id="simplifyLevel" class="level-select">
+                                    <option value="light">Light (Keep details)</option>
+                                    <option value="medium" selected>Medium (Balanced)</option>
+                                    <option value="heavy">Heavy (Most simple)</option>
+                                </select>
+                            </div>
+                            
+                            <button id="simplifyBtn" class="btn-primary tool-btn">
+                                <span class="btn-icon">✍️</span>
+                                Simplify Text
+                            </button>
+
+                            <div class="simplify-features">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="addExamples" checked>
+                                    Add examples
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="showOriginal">
+                                    Show original text
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Output Section -->
+            <section class="output-section">
+                <div class="section-header">
+                    <h2>📤 Accessible Output</h2>
+                    <div class="output-actions">
+                        <button id="copyOutput" class="btn-secondary" title="Copy to clipboard">
+                            📋 Copy
+                        </button>
+                        <button id="downloadOutput" class="btn-secondary" title="Download as file">
+                            📥 Download
+                        </button>
+                        <button id="clearOutput" class="btn-secondary" title="Clear output">
+                            🗑️ Clear
+                        </button>
+                    </div>
+                </div>
+
+                <div class="output-container">
+                    <div id="outputPlaceholder" class="output-placeholder">
+                        <div class="placeholder-content">
+                            <div class="placeholder-icon">📝</div>
+                            <h3>Your accessible content will appear here</h3>
+                            <p>Use the tools above to transform your text into multiple accessible formats</p>
+                        </div>
+                    </div>
+                    
+                    <div id="outputContent" class="output-content hidden">
+                        <div class="output-header">
+                            <h3 id="outputTitle">Output Title</h3>
+                            <div class="output-meta">
+                                <span id="outputType" class="output-type">Type</span>
+                                <span id="outputTime" class="output-time"></span>
+                            </div>
+                        </div>
+                        <div id="outputText" class="output-text"></div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div id="progressBar" class="progress-bar hidden">
+                    <div class="progress-fill" id="progressFill"></div>
+                    <span class="progress-text" id="progressText">Processing...</span>
+                </div>
+            </section>
+        </main>
+
+        <!-- Notifications -->
+        <div id="notificationContainer" class="notification-container"></div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/speech.js"></script>
+    <script src="js/translation.js"></script>
+    <script src="js/simplification.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
